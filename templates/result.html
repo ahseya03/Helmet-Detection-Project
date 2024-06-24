@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helmet Detection Result</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .upload-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .media-container {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Helmet Detection Result</h1>
+
+    <!-- Display the image if image_data is present -->
+    {% if image_data %}
+        <div class="media-container">
+            <img src="{{ image_data }}" alt="Processed Image" style="max-width: 100%; height: auto;">
+        </div>
+    <!-- Otherwise, display the video if video_path is present -->
+    {% elif video_path %}
+        <div class="media-container">
+            <video controls style="max-width: 100%;">
+                <source src="{{ url_for('uploaded_file', filename=video_path.split('/')[-1]) }}" type="video/mp4">
+            </video>
+        </div>
+        <br>
+        <div>
+            <a href="{{ url_for('uploaded_file', filename=video_path.split('/')[-1]) }}">Download Processed Video</a>
+        </div>
+    {% endif %}
+
+    <!-- Link to go back to the upload page -->
+    <br>
+    <a href="/" class="upload-button">Upload Another</a>
+</body>
+</html>
